@@ -1,23 +1,12 @@
-
-import React from 'react';
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import HeroSection from "@/components/hero-section";
+import React from "react";
 import UrlProcessorForm from "@/components/url-processor-form";
-import InfoSection from "@/components/info-section";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Header />
-      
-      <main className="flex-grow">
-        <HeroSection />
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <div className="w-full max-w-4xl">
         <UrlProcessorForm />
-        <InfoSection />
-      </main>
-      
-      <Footer />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RefreshCw, ExternalLink } from "lucide-react";
@@ -41,20 +40,23 @@ const UrlProcessorForm = () => {
       });
       return;
     }
-    
+
     setIsProcessing(true);
-    
+
     // Process video URL if provided
     if (videoUrl) {
-      const result = processUrl(videoUrl, 'video');
+      const result = processUrl(videoUrl, "video");
       setVideoResult({
         originalUrl: videoUrl,
         processedUrl: result.valid ? result.url || null : null,
-        filename: result.valid && result.url ? getFilenameFromUrl(result.url, 'video') : 'video.mp4',
+        filename:
+          result.valid && result.url
+            ? getFilenameFromUrl(result.url, "video")
+            : "video.mp4",
         isValid: result.valid,
-        errorMessage: result.error
+        errorMessage: result.error,
       });
-      
+
       if (!result.valid) {
         toast({
           title: "Video URL Processing Error",
@@ -63,18 +65,21 @@ const UrlProcessorForm = () => {
         });
       }
     }
-    
+
     // Process audio URL if provided
     if (audioUrl) {
-      const result = processUrl(audioUrl, 'audio');
+      const result = processUrl(audioUrl, "audio");
       setAudioResult({
         originalUrl: audioUrl,
         processedUrl: result.valid ? result.url || null : null,
-        filename: result.valid && result.url ? getFilenameFromUrl(result.url, 'audio') : 'audio.mp4',
+        filename:
+          result.valid && result.url
+            ? getFilenameFromUrl(result.url, "audio")
+            : "audio.mp4",
         isValid: result.valid,
-        errorMessage: result.error
+        errorMessage: result.error,
       });
-      
+
       if (!result.valid) {
         toast({
           title: "Audio URL Processing Error",
@@ -83,11 +88,13 @@ const UrlProcessorForm = () => {
         });
       }
     }
-    
+
     setIsProcessing(false);
-    
-    if ((videoUrl && processUrl(videoUrl, 'video').valid) || 
-        (audioUrl && processUrl(audioUrl, 'audio').valid)) {
+
+    if (
+      (videoUrl && processUrl(videoUrl, "video").valid) ||
+      (audioUrl && processUrl(audioUrl, "audio").valid)
+    ) {
       toast({
         title: "URLs Processed Successfully",
         description: "Your media is ready to download",
@@ -97,18 +104,21 @@ const UrlProcessorForm = () => {
 
   // Add animation triggers for elements when they come into view
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
       observer.observe(el);
     });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -118,12 +128,14 @@ const UrlProcessorForm = () => {
         <CardContent className="p-6 md:p-8">
           <div className="space-y-6">
             <div className="space-y-2">
-              <h2 className="text-2xl font-semibold tracking-tight">Process URLs</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">
+                Process URLs
+              </h2>
               <p className="text-muted-foreground">
                 Enter video and audio URLs to process and download
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <UrlInput
                 id="video-url"
@@ -136,7 +148,7 @@ const UrlProcessorForm = () => {
                 errorMessage={videoResult?.errorMessage}
                 isDisabled={isProcessing}
               />
-              
+
               <UrlInput
                 id="audio-url"
                 label="Audio URL"
@@ -149,7 +161,7 @@ const UrlProcessorForm = () => {
                 isDisabled={isProcessing}
               />
             </div>
-            
+
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
               <Button
                 onClick={validateAndProcess}
@@ -164,9 +176,11 @@ const UrlProcessorForm = () => {
                     <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
                     Processing...
                   </>
-                ) : "Process URLs"}
+                ) : (
+                  "Process URLs"
+                )}
               </Button>
-              
+
               <Button
                 variant="outline"
                 onClick={resetForm}
@@ -177,20 +191,22 @@ const UrlProcessorForm = () => {
               </Button>
             </div>
           </div>
-          
+
           {/* Download section appears after processing */}
           {(videoResult?.isValid || audioResult?.isValid) && (
             <div className="mt-8 pt-8 border-t border-border animate-slide-up">
               <h3 className="text-xl font-medium mb-4">Download Files</h3>
-              
-              {/* Important note about CORS */}
+
+              {/* Important note about media downloads */}
               <div className="bg-secondary/50 p-4 rounded-lg mb-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> Due to CORS security restrictions, direct downloads may fail. 
-                  We recommend using the "Open in New Tab" option for a more reliable download experience.
+                  <strong>Note:</strong> When you click the download button, the
+                  media will open in a new tab. If the download doesn't start
+                  automatically, right-click on the media and select "Save As"
+                  to save the file to your device.
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {videoResult?.isValid && videoResult.processedUrl && (
                   <DownloadCard
@@ -200,7 +216,7 @@ const UrlProcessorForm = () => {
                     isEnabled={true}
                   />
                 )}
-                
+
                 {audioResult?.isValid && audioResult.processedUrl && (
                   <DownloadCard
                     type="audio"
