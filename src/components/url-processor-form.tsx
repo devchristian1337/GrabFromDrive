@@ -140,7 +140,7 @@ const UrlProcessorForm = () => {
               <UrlInput
                 id="video-url"
                 label="Video URL"
-                placeholder="Enter video URL containing 'mime=video/mp4'"
+                placeholder="Enter video URL"
                 value={videoUrl}
                 onChange={setVideoUrl}
                 onClear={() => setVideoUrl("")}
@@ -152,7 +152,7 @@ const UrlProcessorForm = () => {
               <UrlInput
                 id="audio-url"
                 label="Audio URL"
-                placeholder="Enter audio URL containing 'mime=audio/mp4'"
+                placeholder="Enter audio URL"
                 value={audioUrl}
                 onChange={setAudioUrl}
                 onClear={() => setAudioUrl("")}
