@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -5,33 +6,49 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 10% 10%;
+    /* Color Palette:
+       Gold: #fdce4a
+       Bright Blue: #498af4
+       Deep Blue: #3e6fc9
+       White: #ffffff
+    */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 10% 10%;
+    /* Background & Foreground */
+    --background: 0 0% 100%; /* #ffffff */
+    --foreground: 217 57% 19%; /* Dark text for readability */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 10% 10%;
+    /* Card Colors */
+    --card: 0 0% 100%; /* #ffffff */
+    --card-foreground: 217 57% 19%; /* Dark text for readability */
 
-    --primary: 220 10% 18%;
-    --primary-foreground: 210 40% 98%;
+    /* Popover Colors */
+    --popover: 0 0% 100%; /* #ffffff */
+    --popover-foreground: 217 57% 19%; /* Dark text for readability */
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 220 10% 18%;
+    /* Primary - Deep Blue */
+    --primary: 217 57% 52%; /* #3e6fc9 */
+    --primary-foreground: 0 0% 100%; /* #ffffff */
 
-    --muted: 210 20% 92%;
-    --muted-foreground: 220 10% 40%;
+    /* Secondary - Bright Blue */
+    --secondary: 214 89% 62%; /* #498af4 */
+    --secondary-foreground: 0 0% 100%; /* #ffffff */
 
-    --accent: 220 50% 60%;
-    --accent-foreground: 210 40% 98%;
+    /* Muted - Light Gray for subtle elements */
+    --muted: 210 14% 95%;
+    --muted-foreground: 217 20% 40%;
 
+    /* Accent - Gold */
+    --accent: 43 98% 64%; /* #fdce4a */
+    --accent-foreground: 217 57% 19%; /* Dark text for readability */
+
+    /* Destructive - Keep existing */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%; /* #ffffff */
 
-    --border: 220 13% 90%;
-    --input: 220 13% 90%;
-    --ring: 220 50% 60%;
+    /* UI Elements */
+    --border: 214 10% 90%;
+    --input: 214 10% 90%;
+    --ring: 43 98% 64%; /* #fdce4a */
 
     --radius: 0.5rem;
   }
@@ -50,42 +67,91 @@
   .glass {
     @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm;
   }
-  
+
   .glass-dark {
     @apply bg-black/10 backdrop-blur-md border border-white/10 shadow-md;
   }
-  
+
   .gradient-text {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary;
   }
-  
+
   /* Animation utilities */
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   }
-  
+
   .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     @apply bg-muted rounded-full;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-muted-foreground/30;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Modern Gradient Utilities */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-secondary;
+  }
+
+  .gradient-text-primary {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-accent to-primary;
+  }
+
+  .gradient-text-accent {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-accent to-primary;
+  }
+
+  .gradient-subtle {
+    @apply bg-gradient-to-r from-secondary/20 to-muted;
+  }
+
+  .gradient-button {
+    @apply bg-gradient-to-r from-primary to-secondary hover:from-accent hover:to-primary transition-all duration-300;
+  }
+
+  /* Gold accent utilities */
+  .gold-highlight {
+    @apply border-2 border-accent shadow-md shadow-accent/20;
+  }
+
+  .gold-accent-text {
+    @apply text-accent font-medium;
+  }
+
+  .gold-button {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 transition-colors;
   }
 }

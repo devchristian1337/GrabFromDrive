@@ -1,5 +1,4 @@
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -39,43 +38,43 @@ const UrlInput = ({
       const text = await navigator.clipboard.readText();
       onChange(text);
     } catch (err) {
-      console.error('Failed to read clipboard:', err);
+      console.error("Failed to read clipboard:", err);
     }
   };
 
   // Animation for input status
   useEffect(() => {
     if (isValid !== null && inputRef.current) {
-      inputRef.current.classList.add('transition-all', 'duration-300');
-      
+      inputRef.current.classList.add("transition-all", "duration-300");
+
       if (isValid) {
-        inputRef.current.classList.add('focus-within:ring-green-400');
-        inputRef.current.classList.remove('focus-within:ring-destructive');
+        inputRef.current.classList.add("focus-within:ring-green-400");
+        inputRef.current.classList.remove("focus-within:ring-destructive");
       } else {
-        inputRef.current.classList.add('focus-within:ring-destructive');
-        inputRef.current.classList.remove('focus-within:ring-green-400');
+        inputRef.current.classList.add("focus-within:ring-destructive");
+        inputRef.current.classList.remove("focus-within:ring-green-400");
       }
-      
+
       const timer = setTimeout(() => {
         if (inputRef.current) {
-          inputRef.current.classList.remove('focus-within:ring-green-400', 'focus-within:ring-destructive');
+          inputRef.current.classList.remove(
+            "focus-within:ring-green-400",
+            "focus-within:ring-destructive"
+          );
         }
       }, 2000);
-      
+
       return () => clearTimeout(timer);
     }
   }, [isValid]);
 
   return (
     <div className={cn("space-y-2", className)}>
-      <Label 
-        htmlFor={id}
-        className="text-sm font-medium transition-colors"
-      >
+      <Label htmlFor={id} className="text-sm font-medium transition-colors">
         {label}
       </Label>
-      
-      <div 
+
+      <div
         className={cn(
           "relative flex items-center rounded-md overflow-hidden transition-all duration-200",
           isFocused ? "ring-2 ring-accent/50" : "ring-0",
@@ -96,11 +95,15 @@ const UrlInput = ({
           className={cn(
             "rounded-md pr-20 transition-all duration-200 ease-in-out",
             "border-input focus-visible:ring-0 focus-visible:ring-offset-0",
-            isValid === false ? "border-destructive/50 focus-visible:border-destructive" : "",
-            isValid === true ? "border-green-400/50 focus-visible:border-green-400" : ""
+            isValid === false
+              ? "border-destructive/50 focus-visible:border-destructive"
+              : "",
+            isValid === true
+              ? "border-green-400/50 focus-visible:border-green-400"
+              : ""
           )}
         />
-        
+
         <div className="absolute right-0 flex space-x-1 pr-1">
           {value && (
             <Button
@@ -114,7 +117,7 @@ const UrlInput = ({
               <span className="sr-only">Clear</span>
             </Button>
           )}
-          
+
           <Button
             type="button"
             variant="ghost"
@@ -128,7 +131,7 @@ const UrlInput = ({
           </Button>
         </div>
       </div>
-      
+
       {errorMessage && isValid === false && (
         <p className="text-sm text-destructive mt-1 animate-slide-up">
           {errorMessage}

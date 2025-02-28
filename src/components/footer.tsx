@@ -1,9 +1,8 @@
-
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="w-full py-6 mt-12 border-t border-border/40">
       <div className="container">
@@ -11,16 +10,16 @@ const Footer = () => {
           <p className="text-sm text-muted-foreground">
             © {currentYear} Media Downloader. All rights reserved.
           </p>
-          
+
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a 
-              href="#privacy" 
+            <a
+              href="#privacy"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Privacy
             </a>
-            <a 
-              href="#terms" 
+            <a
+              href="#terms"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Terms

@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { RefreshCw, ExternalLink } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  RefreshCw,
+  ExternalLink,
+  FileVideo,
+  FileAudio,
+  RefreshCcw,
+  ArrowDownToLine,
+  AlertTriangle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import UrlInput from "@/components/url-input";
 import { processUrl, getFilenameFromUrl } from "@/utils/url-processor";
@@ -124,112 +138,155 @@ const UrlProcessorForm = () => {
 
   return (
     <div className="container py-12" id="content">
-      <Card className="glass overflow-hidden border-0 shadow-lg animate-on-scroll">
-        <CardContent className="p-6 md:p-8">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-semibold tracking-tight">
-                Process URLs
-              </h2>
-              <p className="text-muted-foreground">
-                Enter video and audio URLs to process and download
-              </p>
-            </div>
+      <div className="max-w-5xl mx-auto">
+        <Card className="glass overflow-hidden border border-primary/10 shadow-xl animate-on-scroll transition-all duration-300 hover:shadow-primary/5 dark:bg-background/80 backdrop-blur-sm">
+          <CardHeader className="space-y-1 bg-gradient-to-r from-primary/5 to-background p-6 md:p-8 border-b border-primary/10">
+            <CardTitle className="text-2xl font-bold tracking-tight flex items-center gap-2">
+              <div className="p-2 rounded-full bg-primary/10 text-primary">
+                <ArrowDownToLine className="h-5 w-5" />
+              </div>
+              Media URL Processor
+            </CardTitle>
+            <CardDescription className="text-muted-foreground text-base">
+              Enter video and audio URLs to process and download content from
+              Google Drive and other supported platforms
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-6 md:p-8 pt-6">
+            <div className="space-y-8">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div className="space-y-4 transition-all duration-300 hover:translate-y-[-2px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="p-1.5 rounded-md bg-blue-500/10 text-blue-500">
+                      <FileVideo className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-medium">Video URL</h3>
+                  </div>
+                  <UrlInput
+                    id="video-url"
+                    label="Video URL"
+                    placeholder="Enter video URL from Google Drive or similar"
+                    value={videoUrl}
+                    onChange={setVideoUrl}
+                    onClear={() => setVideoUrl("")}
+                    isValid={videoResult?.isValid ?? null}
+                    errorMessage={videoResult?.errorMessage}
+                    isDisabled={isProcessing}
+                  />
+                </div>
 
-            <div className="space-y-4">
-              <UrlInput
-                id="video-url"
-                label="Video URL"
-                placeholder="Enter video URL"
-                value={videoUrl}
-                onChange={setVideoUrl}
-                onClear={() => setVideoUrl("")}
-                isValid={videoResult?.isValid ?? null}
-                errorMessage={videoResult?.errorMessage}
-                isDisabled={isProcessing}
-              />
-
-              <UrlInput
-                id="audio-url"
-                label="Audio URL"
-                placeholder="Enter audio URL"
-                value={audioUrl}
-                onChange={setAudioUrl}
-                onClear={() => setAudioUrl("")}
-                isValid={audioResult?.isValid ?? null}
-                errorMessage={audioResult?.errorMessage}
-                isDisabled={isProcessing}
-              />
-            </div>
-
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-              <Button
-                onClick={validateAndProcess}
-                disabled={isProcessing || (!videoUrl && !audioUrl)}
-                className={cn(
-                  "transition-all duration-300 flex-1",
-                  isProcessing && "animate-pulse"
-                )}
-              >
-                {isProcessing ? (
-                  <>
-                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
-                    Processing...
-                  </>
-                ) : (
-                  "Process URLs"
-                )}
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={resetForm}
-                disabled={isProcessing}
-                className="flex-none"
-              >
-                Reset
-              </Button>
-            </div>
-          </div>
-
-          {/* Download section appears after processing */}
-          {(videoResult?.isValid || audioResult?.isValid) && (
-            <div className="mt-8 pt-8 border-t border-border animate-slide-up">
-              <h3 className="text-xl font-medium mb-4">Download Files</h3>
-
-              {/* Important note about media downloads */}
-              <div className="bg-secondary/50 p-4 rounded-lg mb-6">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> When you click the download button, the
-                  media will open in a new tab. If the download doesn't start
-                  automatically, right-click on the media and select "Save As"
-                  to save the file to your device.
-                </p>
+                <div className="space-y-4 transition-all duration-300 hover:translate-y-[-2px]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="p-1.5 rounded-md bg-purple-500/10 text-purple-500">
+                      <FileAudio className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-medium">Audio URL</h3>
+                  </div>
+                  <UrlInput
+                    id="audio-url"
+                    label="Audio URL"
+                    placeholder="Enter audio URL from Google Drive or similar"
+                    value={audioUrl}
+                    onChange={setAudioUrl}
+                    onClear={() => setAudioUrl("")}
+                    isValid={audioResult?.isValid ?? null}
+                    errorMessage={audioResult?.errorMessage}
+                    isDisabled={isProcessing}
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {videoResult?.isValid && videoResult.processedUrl && (
-                  <DownloadCard
-                    type="video"
-                    url={videoResult.processedUrl}
-                    filename={videoResult.filename}
-                    isEnabled={true}
-                  />
-                )}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button
+                  onClick={validateAndProcess}
+                  disabled={isProcessing || (!videoUrl && !audioUrl)}
+                  className={cn(
+                    "transition-all duration-300 flex-1 py-6 text-base font-medium shadow-sm hover:shadow-md",
+                    isProcessing
+                      ? "animate-pulse bg-primary/90"
+                      : "bg-primary hover:bg-primary/90"
+                  )}
+                >
+                  {isProcessing ? (
+                    <>
+                      <RefreshCw className="mr-2 h-5 w-5 animate-spin" />
+                      Processing URLs...
+                    </>
+                  ) : (
+                    <>
+                      <ArrowDownToLine className="mr-2 h-5 w-5" />
+                      Process & Download
+                    </>
+                  )}
+                </Button>
 
-                {audioResult?.isValid && audioResult.processedUrl && (
-                  <DownloadCard
-                    type="audio"
-                    url={audioResult.processedUrl}
-                    filename={audioResult.filename}
-                    isEnabled={true}
-                  />
-                )}
+                <Button
+                  variant="outline"
+                  onClick={resetForm}
+                  disabled={isProcessing}
+                  className="flex-none py-6 text-base font-medium border-primary/20 hover:bg-primary/5"
+                >
+                  <RefreshCcw className="mr-2 h-4 w-4" />
+                  Reset
+                </Button>
               </div>
             </div>
-          )}
-        </CardContent>
-      </Card>
+
+            {/* Download section appears after processing */}
+            {(videoResult?.isValid || audioResult?.isValid) && (
+              <div
+                className="mt-10 pt-8 border-t border-primary/10 animate-fadeIn"
+                style={{ animationDuration: "0.5s", animationFillMode: "both" }}
+              >
+                <div className="flex items-center gap-2 mb-6">
+                  <h3 className="text-xl font-bold">Your Downloads</h3>
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                </div>
+
+                {/* Important note about media downloads */}
+                <div className="bg-amber-500/10 border border-amber-200/20 p-4 rounded-lg mb-8 flex items-start gap-3">
+                  <AlertTriangle className="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-amber-600 dark:text-amber-400 mb-1">
+                      Download Instructions
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      When you click the download button, the media will open in
+                      a new tab. If the download doesn't start automatically,
+                      right-click on the media and select "Save As" to save the
+                      file to your device.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {videoResult?.isValid && videoResult.processedUrl && (
+                    <div className="transition-all duration-300 hover:translate-y-[-3px]">
+                      <DownloadCard
+                        type="video"
+                        url={videoResult.processedUrl}
+                        filename={videoResult.filename}
+                        isEnabled={true}
+                      />
+                    </div>
+                  )}
+
+                  {audioResult?.isValid && audioResult.processedUrl && (
+                    <div className="transition-all duration-300 hover:translate-y-[-3px]">
+                      <DownloadCard
+                        type="audio"
+                        url={audioResult.processedUrl}
+                        filename={audioResult.filename}
+                        isEnabled={true}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
