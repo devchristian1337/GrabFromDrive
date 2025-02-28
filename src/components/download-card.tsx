@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Download, File, ExternalLink } from "lucide-react";
+import { Download, File, ExternalLink, Copy } from "lucide-react";
 import ProgressBar from "@/components/ui-custom/progress-bar";
 import LoadingSpinner from "@/components/ui-custom/loading-spinner";
 import { useToast } from "@/hooks/use-toast";
@@ -26,6 +26,7 @@ const DownloadCard = ({
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [showUrl, setShowUrl] = useState(false);
   const { toast } = useToast();
 
   const handleDownload = async () => {
@@ -78,6 +79,18 @@ const DownloadCard = ({
     });
   };
 
+  const toggleShowUrl = () => {
+    setShowUrl(!showUrl);
+  };
+
+  const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(url);
+    toast({
+      title: "URL Copied",
+      description: "The processed URL has been copied to your clipboard.",
+    });
+  };
+
   return (
     <div 
       className={cn(
@@ -104,6 +117,24 @@ const DownloadCard = ({
         </div>
       </div>
       
+      {showUrl && (
+        <div className="mt-2 mb-4">
+          <p className="text-xs font-medium mb-1">Processed URL:</p>
+          <div className="bg-muted/40 p-2 rounded-md text-xs text-muted-foreground break-all max-h-24 overflow-y-auto">
+            {url}
+          </div>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={copyUrlToClipboard}
+            className="mt-1 h-7 text-xs"
+          >
+            <Copy className="h-3 w-3 mr-1" />
+            Copy URL
+          </Button>
+        </div>
+      )}
+      
       {isDownloading ? (
         <div className="mt-4 space-y-2">
           <ProgressBar progress={downloadProgress} />
@@ -113,6 +144,14 @@ const DownloadCard = ({
         </div>
       ) : (
         <div className="space-y-2 mt-4">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={toggleShowUrl}
+          >
+            {showUrl ? "Hide URL" : "Show Processed URL"}
+          </Button>
+          
           {/* Primary download button (may fail due to CORS) */}
           <Button
             className="w-full"
