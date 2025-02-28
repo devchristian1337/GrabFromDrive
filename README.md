@@ -1,69 +1,94 @@
-# Welcome to your Lovable project
+## 📋 Overview
 
-## Project info
+GrabFromDrive is a React-based web application that allows users to process Google Drive video and audio URLs for direct downloading. The application transforms standard Google Drive sharing URLs into direct download links, making it easier to download media content from Google Drive.
 
-**URL**: https://lovable.dev/projects/80d0572b-3260-43bd-bd32-c95436e2e0e6
+## ✨ Features
 
-## How can I edit this code?
+- **URL Processing**: Transform Google Drive sharing URLs into direct download links
+- **Dual Media Support**: Process both video and audio URLs simultaneously
+- **Validation**: Verify URL format and content type before processing
+- **Direct Downloads**: Generate downloadable links with proper filenames
+- **Modern UI**: Clean, responsive interface built with Tailwind CSS and shadcn/ui
+- **Accessibility**: Fully accessible components with keyboard navigation support
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Framework**: React 19
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Routing**: React Router v7
+- **UI Components**: shadcn/ui with Radix UI primitives
+- **Styling**: Tailwind CSS
+- **State Management**: React Query
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Notifications**: Sonner Toast
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/80d0572b-3260-43bd-bd32-c95436e2e0e6) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js (v18 or higher)
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. Clone the repository:
 
-Follow these steps:
+   ```bash
+   git clone https://github.com/devchristian1337/grabfromdrive.git
+   cd grabfromdrive
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Install dependencies:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Start the development server:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## 🔧 Usage
+
+1. Enter a Google Drive video URL in the video input field
+2. Enter a Google Drive audio URL in the audio input field (optional)
+3. Click "Process URLs" to generate direct download links
+4. Use the download buttons to save the media files to your device
+
+## 📦 Build for Production
+
+```bash
+npm run build
+# or
+yarn build
 ```
 
-**Edit a file directly in GitHub**
+The build artifacts will be stored in the `dist/` directory.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🧪 Development
 
-**Use GitHub Codespaces**
+### Available Scripts
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- `npm run dev` - Start the development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build for development
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview the production build
 
-## What technologies are used for this project?
+## 🤝 Contributing
 
-This project is built with .
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 👨‍💻 Author
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/80d0572b-3260-43bd-bd32-c95436e2e0e6) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- [devchristian1337](https://github.com/devchristian1337)
