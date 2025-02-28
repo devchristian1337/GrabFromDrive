@@ -1,5 +1,7 @@
 ## 📋 Overview
 
+![Preview](https://iili.io/3dDhh74.png)
+
 GrabFromDrive is a React-based web application that allows users to process Google Drive video and audio URLs for direct downloading. The application transforms standard Google Drive sharing URLs into direct download links, making it easier to download media content from Google Drive.
 
 ## ✨ Features
@@ -36,8 +38,8 @@ GrabFromDrive is a React-based web application that allows users to process Goog
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/devchristian1337/grabfromdrive.git
-   cd grabfromdrive
+   git clone https://github.com/devchristian1337/GrabFromDrive.git
+   cd GrabFromDrive
    ```
 
 2. Install dependencies:
