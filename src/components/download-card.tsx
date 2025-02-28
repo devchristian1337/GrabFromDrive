@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Download, File } from "lucide-react";
+import { Download, File, ExternalLink } from "lucide-react";
 import ProgressBar from "@/components/ui-custom/progress-bar";
 import LoadingSpinner from "@/components/ui-custom/loading-spinner";
 import { useToast } from "@/hooks/use-toast";
@@ -68,6 +68,16 @@ const DownloadCard = ({
     }
   };
 
+  const handleExternalDownload = () => {
+    // Open the URL in a new tab for direct download
+    window.open(url, '_blank');
+    
+    toast({
+      title: "Opening URL in New Tab",
+      description: "If direct download doesn't start, right-click and use 'Save As' option.",
+    });
+  };
+
   return (
     <div 
       className={cn(
@@ -101,29 +111,33 @@ const DownloadCard = ({
             Downloading {type} file...
           </p>
         </div>
-      ) : isComplete ? (
-        <div className="mt-4">
-          <Button 
-            className="w-full"
-            variant="outline"
-            onClick={handleDownload}
-          >
-            Download Again
-          </Button>
-        </div>
       ) : (
-        <Button
-          className="w-full"
-          onClick={handleDownload}
-          disabled={!isEnabled}
-        >
-          {isDownloading ? (
-            <LoadingSpinner size="sm" color="border-white" className="mr-2" />
-          ) : (
+        <div className="space-y-2 mt-4">
+          {/* Primary download button (may fail due to CORS) */}
+          <Button
+            className="w-full"
+            onClick={handleDownload}
+            disabled={!isEnabled}
+          >
             <Download className="mr-2 h-4 w-4" />
-          )}
-          Download {type}
-        </Button>
+            Download {type}
+          </Button>
+          
+          {/* Alternative download method - more likely to work */}
+          <Button 
+            variant="outline" 
+            className="w-full"
+            onClick={handleExternalDownload}
+            disabled={!isEnabled}
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Open in New Tab
+          </Button>
+          
+          <p className="text-xs text-muted-foreground mt-1">
+            If direct download fails, use "Open in New Tab"
+          </p>
+        </div>
       )}
     </div>
   );

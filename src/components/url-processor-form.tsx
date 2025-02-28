@@ -95,16 +95,6 @@ const UrlProcessorForm = () => {
     }
   };
 
-  const handleExternalDownload = (url: string, filename: string) => {
-    // Open the URL in a new tab for direct download
-    window.open(url, '_blank');
-    
-    toast({
-      title: "Opening URL in New Tab",
-      description: "If direct download doesn't start, right-click and use 'Save As' option.",
-    });
-  };
-
   // Add animation triggers for elements when they come into view
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -196,51 +186,28 @@ const UrlProcessorForm = () => {
               {/* Important note about CORS */}
               <div className="bg-secondary/50 p-4 rounded-lg mb-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> Some servers block direct downloads due to CORS restrictions. 
-                  If the normal download doesn't work, try the "Open in New Tab" option and use your browser's 
-                  download feature.
+                  <strong>Note:</strong> Due to CORS security restrictions, direct downloads may fail. 
+                  We recommend using the "Open in New Tab" option for a more reliable download experience.
                 </p>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {videoResult?.isValid && videoResult.processedUrl && (
-                  <div className="flex flex-col space-y-3">
-                    <DownloadCard
-                      type="video"
-                      url={videoResult.processedUrl}
-                      filename={videoResult.filename}
-                      isEnabled={true}
-                    />
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleExternalDownload(videoResult.processedUrl, videoResult.filename)}
-                      className="text-xs"
-                    >
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      Open in New Tab
-                    </Button>
-                  </div>
+                  <DownloadCard
+                    type="video"
+                    url={videoResult.processedUrl}
+                    filename={videoResult.filename}
+                    isEnabled={true}
+                  />
                 )}
                 
                 {audioResult?.isValid && audioResult.processedUrl && (
-                  <div className="flex flex-col space-y-3">
-                    <DownloadCard
-                      type="audio"
-                      url={audioResult.processedUrl}
-                      filename={audioResult.filename}
-                      isEnabled={true}
-                    />
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => handleExternalDownload(audioResult.processedUrl, audioResult.filename)}
-                      className="text-xs"
-                    >
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      Open in New Tab
-                    </Button>
-                  </div>
+                  <DownloadCard
+                    type="audio"
+                    url={audioResult.processedUrl}
+                    filename={audioResult.filename}
+                    isEnabled={true}
+                  />
                 )}
               </div>
             </div>
