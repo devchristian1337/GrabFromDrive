@@ -47,19 +47,28 @@ export const processUrl = (url: string, type: 'video' | 'audio'): { valid: boole
       }
     }
     
-    // Find and remove the last parameter
-    const paramsArray = Array.from(newParams.entries());
-    if (paramsArray.length > 0) {
-      const lastParam = paramsArray[paramsArray.length - 1][0];
-      newParams.delete(lastParam);
+    // Find and remove the last parameter - improved logic
+    const paramString = newParams.toString();
+    let cleanedParams = paramString;
+    
+    // Find the last parameter and remove it
+    const lastAmpIndex = paramString.lastIndexOf('&');
+    if (lastAmpIndex !== -1) {
+      cleanedParams = paramString.substring(0, lastAmpIndex);
+    } else {
+      // If there's only one parameter, remove it entirely
+      cleanedParams = '';
     }
     
     // Rebuild the URL
-    urlObj.search = newParams.toString();
+    const processedUrl = urlObj.origin + urlObj.pathname;
+    
+    // Add the cleaned parameters if any remain
+    const finalUrl = cleanedParams ? processedUrl + '?' + cleanedParams : processedUrl;
     
     return {
       valid: true,
-      url: urlObj.toString()
+      url: finalUrl
     };
   } catch (error) {
     return {
