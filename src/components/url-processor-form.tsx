@@ -149,7 +149,7 @@ const UrlProcessorForm = () => {
             </CardTitle>
             <CardDescription className="text-muted-foreground text-base">
               Enter video and audio URLs to process and download content from
-              Google Drive and other supported platforms
+              Google Drive
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 md:p-8 pt-6">
@@ -165,7 +165,7 @@ const UrlProcessorForm = () => {
                   <UrlInput
                     id="video-url"
                     label="Video URL"
-                    placeholder="Enter video URL from Google Drive or similar"
+                    placeholder="Enter video URL from Google Drive"
                     value={videoUrl}
                     onChange={setVideoUrl}
                     onClear={() => setVideoUrl("")}
@@ -185,7 +185,7 @@ const UrlProcessorForm = () => {
                   <UrlInput
                     id="audio-url"
                     label="Audio URL"
-                    placeholder="Enter audio URL from Google Drive or similar"
+                    placeholder="Enter audio URL from Google Drive"
                     value={audioUrl}
                     onChange={setAudioUrl}
                     onClear={() => setAudioUrl("")}
